@@ -26,3 +26,9 @@ npm install @mui/icons-material
 
 #for chart viz
 npm install chart.js react-chartjs-2
+
+#for dates in timline
+npm install react-chartjs-2 chart.js chartjs-adapter-date-fns
+
+
+npm install react-gantt-timeline

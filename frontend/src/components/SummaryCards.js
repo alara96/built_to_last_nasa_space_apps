@@ -88,7 +88,7 @@ const SummaryCards = () => {
         <Card sx={{ backgroundColor: '#1a1a2e', color: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)', mb: 4 }}>
           <CardContent>
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>Mouse Weight Overview</Typography>
-            <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
+            <Typography variant="body1" sx={{ lineHeight: 1.5, fontWeight: 'bold' }}>
               Weight range: <strong>{data.weightRange}</strong>
             </Typography>
           </CardContent>
