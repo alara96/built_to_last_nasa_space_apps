@@ -4,6 +4,8 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 import datetime
+import requests
+import json
 
 # Load and preprocess the data
 # Note: The data would ideally be extracted directly from the uploaded files. For simplicity, here I'll mock the data.
@@ -19,6 +21,22 @@ sample_data = {
 
 # Convert data to DataFrame
 df_samples = pd.DataFrame(sample_data)
+
+# Function to get metadata from NASA OSDR API
+def fetch_metadata():
+    url = "https://api.nasa.gov/osdr-public-api/experiments"
+    headers = {
+        "Content-Type": "application/json"
+    }
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            return json.dumps(data, indent=4)
+        else:
+            return f"Error: {response.status_code}"
+    except Exception as e:
+        return str(e)
 
 # Create Dash application
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -78,8 +96,27 @@ app.layout = dbc.Container([
                 )
             )
         ]))
+    ]),
+
+    # NASA OSDR API Metadata Retrieval Component
+    dbc.Row([
+        dbc.Col(html.Div([
+            html.H4("Experiment Metadata from NASA OSDR"),
+            html.Button("Fetch Metadata", id="fetch-metadata-btn", className="btn btn-primary"),
+            html.Pre(id="metadata-output", style={"whiteSpace": "pre-wrap", "backgroundColor": "#f8f9fa", "padding": "10px"})
+        ]))
     ])
 ], fluid=True)
+
+# Callbacks
+@app.callback(
+    Output('metadata-output', 'children'),
+    [Input('fetch-metadata-btn', 'n_clicks')]
+)
+def update_metadata(n_clicks):
+    if n_clicks:
+        return fetch_metadata()
+    return "Click the button to fetch metadata."
 
 # Run the application
 if __name__ == '__main__':
