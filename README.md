@@ -4,7 +4,7 @@
 
 **How to Set Up**
 
-pip install uv
+
 
 uv venv
 
@@ -16,3 +16,16 @@ uv pip install requirements.txt
 **How to Run**
 
 python3 main.py
+
+**Installing dependencies for React app (inside frontend folder)**
+
+chmod +x install_dependencies.sh
+
+./install_dependencies.sh
+
+
+**Installing dependencies for React app (inside frontend folder)**
+pip freeze > requirements.txt
+
+to test backend --> python app.py
+
