@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, CssBaseline } from '@mui/material';
 import SummaryCards from './components/SummaryCards';
 import TimelineVisualization from './components/TimelineVisualization';
-import Flowchart from './components/Flowchart';
+import TimelineVisualization2 from './components/TimelineVisualization2';
 import MetadataRetriever from './components/MetadataRetriever';
 import Header from './components/Header';
 
@@ -14,8 +14,7 @@ const App = () => {
       <Container maxWidth={false} sx={{ backgroundColor: 'black', minHeight: '100vh', py: 4, margin: 0, position: 'relative', overflowY: 'auto' }}>
         <Header />
         <SummaryCards />
-        <TimelineVisualization />
-        <Flowchart />
+        <TimelineVisualization2 />
         <MetadataRetriever />
       </Container>
       <style jsx global>{`
