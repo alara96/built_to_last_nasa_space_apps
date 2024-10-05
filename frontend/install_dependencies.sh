@@ -21,5 +21,8 @@ npm install react-router-dom
 # Install Flask (for the backend)
 pip3 install Flask requests
 
-for icons
+#for icons
 npm install @mui/icons-material
+
+#for chart viz
+npm install chart.js react-chartjs-2
