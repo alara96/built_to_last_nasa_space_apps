@@ -1,8 +1,10 @@
 # app.py
 from flask import Flask, jsonify
+from flask_cors import CORS  # Import CORS
 import requests
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 @app.route('/')
 def home():
@@ -11,7 +13,7 @@ def home():
 # Endpoint to fetch metadata from NASA
 @app.route('/api/metadata', methods=['GET'])
 def fetch_metadata():
-    url = "https://api.nasa.gov/osdr-public-api/experiments"
+    url = "https://osdr.nasa.gov/osdr/data/osd/files/87"
     headers = {
         "Content-Type": "application/json"
     }
