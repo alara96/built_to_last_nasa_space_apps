@@ -1,8 +1,7 @@
 // App.js
 import React from 'react';
-import { Container, CssBaseline, Box } from '@mui/material';
+import { Container, CssBaseline } from '@mui/material';
 import SummaryCards from './components/SummaryCards';
-import SubjectDistribution from './components/SubjectDistribution';
 import TimelineVisualization from './components/TimelineVisualization';
 import Flowchart from './components/Flowchart';
 import MetadataRetriever from './components/MetadataRetriever';
@@ -14,23 +13,10 @@ const App = () => {
       <CssBaseline />
       <Container maxWidth={false} sx={{ backgroundColor: 'black', minHeight: '100vh', py: 4, margin: 0, position: 'relative', overflowY: 'auto' }}>
         <Header />
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-          <Box sx={{ flex: '1 1 calc(50% - 16px)' }}>
-            <SummaryCards />
-          </Box>
-          <Box sx={{ flex: '1 1 calc(50% - 16px)' }}>
-            <SubjectDistribution />
-          </Box>
-          <Box sx={{ flex: '1 1 100%' }}>
-            <TimelineVisualization />
-          </Box>
-          <Box sx={{ flex: '1 1 100%' }}>
-            <Flowchart />
-          </Box>
-          <Box sx={{ flex: '1 1 100%' }}>
-            <MetadataRetriever />
-          </Box>
-        </Box>
+        <SummaryCards />
+        <TimelineVisualization />
+        <Flowchart />
+        <MetadataRetriever />
       </Container>
       <style jsx global>{`
         body {
