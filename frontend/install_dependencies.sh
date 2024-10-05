@@ -19,4 +19,7 @@ npm install react-google-charts
 npm install react-router-dom
 
 # Install Flask (for the backend)
-pip install Flask requests
+pip3 install Flask requests
+
+for icons
+npm install @mui/icons-material
