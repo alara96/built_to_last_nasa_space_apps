@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import { Container, CssBaseline, Grid } from '@mui/material';
+import { Container, CssBaseline, Box } from '@mui/material';
 import SummaryCards from './components/SummaryCards';
 import SubjectDistribution from './components/SubjectDistribution';
 import TimelineVisualization from './components/TimelineVisualization';
@@ -14,23 +14,23 @@ const App = () => {
       <CssBaseline />
       <Container maxWidth={false} sx={{ backgroundColor: 'black', minHeight: '100vh', py: 4, margin: 0, position: 'relative', overflowY: 'auto' }}>
         <Header />
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+          <Box sx={{ flex: '1 1 calc(50% - 16px)' }}>
             <SummaryCards />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Box>
+          <Box sx={{ flex: '1 1 calc(50% - 16px)' }}>
             <SubjectDistribution />
-          </Grid>
-          <Grid item xs={12}>
+          </Box>
+          <Box sx={{ flex: '1 1 100%' }}>
             <TimelineVisualization />
-          </Grid>
-          <Grid item xs={12}>
+          </Box>
+          <Box sx={{ flex: '1 1 100%' }}>
             <Flowchart />
-          </Grid>
-          <Grid item xs={12}>
+          </Box>
+          <Box sx={{ flex: '1 1 100%' }}>
             <MetadataRetriever />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
       <style jsx global>{`
         body {
