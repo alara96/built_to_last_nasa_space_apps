@@ -41,7 +41,8 @@ const Flowchart = () => {
       .attr('y1', d => d.source.y)
       .attr('x2', d => d.target.x)
       .attr('y2', d => d.target.y)
-      .attr('stroke', '#ccc');
+      .attr('stroke', '#ccc')
+      .attr('stroke-width', 2);
 
     const nodes = svg.selectAll('.node')
       .data(treeData.descendants())
@@ -51,14 +52,21 @@ const Flowchart = () => {
       .attr('transform', d => `translate(${d.x},${d.y})`);
 
     nodes.append('circle')
-      .attr('r', 5)
+      .attr('r', 8)
       .attr('fill', '#69b3a2');
 
     nodes.append('text')
       .attr('dy', '.35em')
       .attr('x', d => (d.children ? -10 : 10))
       .style('text-anchor', d => (d.children ? 'end' : 'start'))
-      .text(d => d.data.name);
+      .text(d => d.data.name)
+      .style('fill', '#ffffff')
+      .style('font-weight', 'bold');
+
+    // Adding a background color to the chart area
+    d3.select(chartRef.current)
+      .style('background-color', '#1a1a2e')
+      .style('padding', '10px');
   }, []);
 
   return <Box mb={4} ref={chartRef} />;
