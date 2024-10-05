@@ -19,8 +19,10 @@ sample_data = {
     'Treatment': ['Spaceflight Exposure', 'Habitat Ground Control', 'Vivarium Ground Control'] * 9
 }
 
+
 # Convert data to DataFrame
 df_samples = pd.DataFrame(sample_data)
+
 
 # Function to get metadata from NASA OSDR API
 def fetch_metadata():
@@ -113,6 +115,7 @@ app.layout = dbc.Container([
     Output('metadata-output', 'children'),
     [Input('fetch-metadata-btn', 'n_clicks')]
 )
+
 def update_metadata(n_clicks):
     if n_clicks:
         return fetch_metadata()
