@@ -39,7 +39,7 @@ def get_rodent_665():
 # Endpoint to fetch metadata from NASA
 @app.route('/api/metadata', methods=['GET'])
 def fetch_metadata():
-    url = "https://osdr.nasa.gov/osdr/data/osd/files/379"
+    url = "https://osdr.nasa.gov/osdr/data/osd/files/702"
     headers = {
         "Content-Type": "application/json"
     }
