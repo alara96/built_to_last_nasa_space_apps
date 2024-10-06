@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@mui/material';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'; // Importing spaceship icon
 
 const Header = () => {
   return (
@@ -17,6 +18,14 @@ const Header = () => {
         >
           Space Experiment Explorer (SEE)
         </Typography>
+        {/* Adding the spaceship icon after the title */}
+        <RocketLaunchIcon 
+          sx={{ 
+            color: '#ffffff', 
+            fontSize: 40, 
+            ml: 2 // Margin left to space it from the title
+          }} 
+        />
       </Toolbar>
     </AppBar>
   );

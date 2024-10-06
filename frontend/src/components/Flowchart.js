@@ -1,75 +1,112 @@
-// Flowchart.js
 import React, { useEffect, useRef } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import * as d3 from 'd3';
 
 const Flowchart = () => {
   const chartRef = useRef(null);
 
   useEffect(() => {
-    const data = [
-      { group: 'Flight', subjects: 9 },
-      { group: 'Habitat Ground Control', subjects: 9 },
-      { group: 'Vivarium Ground Control', subjects: 9 },
+    const createFlowchart = (container, data, title, width, height, startX, startY) => {
+      const margin = { top: 20, right: 30, bottom: 30, left: 50 };
+
+      const svg = d3.select(container)
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+      // Title for each section
+      svg.append('text')
+        .attr('x', width / 2)
+        .attr('y', -10)
+        .attr('text-anchor', 'middle')
+        .style('fill', '#ffffff')
+        .style('font-size', '20px')
+        .text(title);
+
+      // Create nodes (rectangles for steps in the flowchart)
+      const nodes = svg.selectAll('rect')
+        .data(data)
+        .enter()
+        .append('g')
+        .attr('transform', (d, i) => `translate(${startX + i * 150}, ${startY + i * 100})`);
+
+      nodes.append('rect')
+        .attr('width', 140)
+        .attr('height', 50)
+        .attr('fill', '#69b3a2')
+        .attr('stroke', '#ffffff')
+        .attr('rx', 10)
+        .attr('ry', 10);
+
+      nodes.append('text')
+        .attr('x', 70)
+        .attr('y', 25)
+        .attr('text-anchor', 'middle')
+        .style('fill', '#ffffff')
+        .style('font-size', '14px')
+        .text(d => d.name);
+
+      // Create arrows between nodes
+      svg.selectAll('line')
+        .data(data.slice(1))
+        .enter()
+        .append('line')
+        .attr('x1', (d, i) => startX + i * 150 + 140)
+        .attr('y1', (d, i) => startY + i * 100 + 25)
+        .attr('x2', (d, i) => startX + (i + 1) * 150)
+        .attr('y2', (d, i) => startY + (i + 1) * 100 + 25)
+        .attr('stroke', '#ffffff')
+        .attr('stroke-width', 2)
+        .attr('marker-end', 'url(#arrow)');
+
+      // Arrow definition
+      svg.append('defs')
+        .append('marker')
+        .attr('id', 'arrow')
+        .attr('viewBox', '0 0 10 10')
+        .attr('refX', '10')
+        .attr('refY', '5')
+        .attr('markerWidth', '6')
+        .attr('markerHeight', '6')
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M0,0 L10,5 L0,10 Z')
+        .attr('fill', '#ffffff');
+    };
+
+    const preLaunchData = [
+      { name: 'Proposal Submitted' },
+      { name: 'Approval Obtained' },
+      { name: 'Preparation Completed' },
+      { name: 'Experiment Launched' }
     ];
 
-    const margin = { top: 20, right: 30, bottom: 30, left: 50 };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const postReturnData = [
+      { name: 'Experiment Retrieved' },
+      { name: 'Data Analyzed' },
+      { name: 'Report Generated' }
+    ];
 
-    const svg = d3.select(chartRef.current)
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+    // Clear previous SVG
+    d3.select(chartRef.current).selectAll('*').remove();
 
-    const root = d3.hierarchy({
-      name: 'Experiment',
-      children: data.map(d => ({ name: d.group, size: d.subjects })),
-    });
+    // Create two flowcharts for pre-launch and post-return events
+    const width = 600;
+    const height = 400;
 
-    const treeLayout = d3.tree().size([width, height]);
-    const treeData = treeLayout(root);
-
-    const links = svg.selectAll('.link')
-      .data(treeData.links())
-      .enter()
-      .append('line')
-      .attr('class', 'link')
-      .attr('x1', d => d.source.x)
-      .attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x)
-      .attr('y2', d => d.target.y)
-      .attr('stroke', '#ccc')
-      .attr('stroke-width', 2);
-
-    const nodes = svg.selectAll('.node')
-      .data(treeData.descendants())
-      .enter()
-      .append('g')
-      .attr('class', 'node')
-      .attr('transform', d => `translate(${d.x},${d.y})`);
-
-    nodes.append('circle')
-      .attr('r', 8)
-      .attr('fill', '#69b3a2');
-
-    nodes.append('text')
-      .attr('dy', '.35em')
-      .attr('x', d => (d.children ? -10 : 10))
-      .style('text-anchor', d => (d.children ? 'end' : 'start'))
-      .text(d => d.data.name)
-      .style('fill', '#ffffff')
-      .style('font-weight', 'bold');
-
-    // Adding a background color to the chart area
-    d3.select(chartRef.current)
-      .style('background-color', '#1a1a2e')
-      .style('padding', '10px');
+    createFlowchart(chartRef.current, preLaunchData, 'Pre-Launch Events', width, height, 0, 0);
+    createFlowchart(chartRef.current, postReturnData, 'Post-Return Events', width, height, 0, 500); // Adjust starting position for second flowchart
   }, []);
 
-  return <Box mb={4} ref={chartRef} />;
+  return (
+    <Box mb={4} ref={chartRef}>
+      <Typography variant="h4" align="center" color="#ffffff" mb={2}>
+        Flowchart Overview
+      </Typography>
+    </Box>
+  );
 };
 
 export default Flowchart;
