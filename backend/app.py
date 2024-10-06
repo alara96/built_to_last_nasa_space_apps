@@ -5,6 +5,7 @@ import requests
 from download_data import download_file
 import json
 from gpt import call_chad
+import os
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
