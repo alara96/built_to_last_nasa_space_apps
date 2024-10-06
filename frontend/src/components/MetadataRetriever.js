@@ -6,6 +6,21 @@ const MetadataRetriever = ({ onMetadataFetched }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null); // Error state for handling API errors
 
+  // Load Rodent 379 data from the Flask API
+  const loadRodent379 = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get('http://127.0.0.1:5000/api/rodent/379'); // API call for rodent 665 data
+      onMetadataFetched(response.data); // Pass the data back to App.js
+    } catch (err) {
+      setError('Failed to load rodent 379 data.');
+      console.error('API Fetch Error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Load Rodent 665 data from the Flask API
   const loadRodent665 = async () => {
     setLoading(true);
@@ -51,6 +66,17 @@ const MetadataRetriever = ({ onMetadataFetched }) => {
       >
         Select Data Source
       </Typography>
+      <Button
+        variant="contained"
+        onClick={loadRodent379}
+        sx={{
+          m: 1,
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+          fontWeight: 'bold'
+        }}
+      >
+        Load Rodent 379 Data
+      </Button>
       <Button
         variant="contained"
         onClick={loadRodent665}
