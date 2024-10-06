@@ -1,8 +1,6 @@
 import openai
 import os
 
-openai.api_key = "sk-gF1WYzxsZMk97XvvhrSzZYKJVGW_lErCLRfb1qT2ZvT3BlbkFJ-sAvW5CgDJnS4f0IGnfZQ0AZ5w0Suj2ZlD4A9cvuIA"
-
 def call_chad(folder_path):
 
     # Initialize a string to store the contents of all the files
