@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import axios from 'axios';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import EventIcon from '@mui/icons-material/Event';
 
@@ -14,36 +13,12 @@ const formatDate = (dateString) => {
   });
 };
 
-const TimelineVisualization = () => {
-  const [preLaunchEvents, setPreLaunchEvents] = useState([]);
-  const [postReturnEvents, setPostReturnEvents] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchMetadata = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:5000/api/rodent/379'); // Your backend endpoint
-        const metadata = response.data;
-
-        // Parse and separate pre-launch and post-return events
-        setPreLaunchEvents(metadata.pre_launch_events);
-        setPostReturnEvents(metadata.post_return_events);
-      } catch (err) {
-        setError('Error fetching metadata');
-        console.error(err);
-      }
-    };
-
-    fetchMetadata();
-  }, []);
-
-  if (error) {
-    return <Typography>Error: {error}</Typography>;
-  }
+const TimelineVisualization = ({ metadata }) => {
+  const preLaunchEvents = metadata.pre_launch_events || [];
+  const postReturnEvents = metadata.post_return_events || [];
 
   return (
-    <Box sx={{ backgroundColor: '#1a1a2e', padding: 2, borderRadius: 2 }}> {/* Dark blue background with padding */}
-
+    <Box sx={{ backgroundColor: '#1a1a2e', padding: 2, borderRadius: 2, mt: 4 }}>
       {/* Pre-Launch Events */}
       <Typography
         variant="h6"
@@ -58,7 +33,7 @@ const TimelineVisualization = () => {
         display="flex"
         flexWrap="wrap"
         justifyContent="space-between"
-        gap={3} // Adds spacing between the cards
+        gap={3}
         mb={4}
       >
         {preLaunchEvents.map((event, index) => (
@@ -71,9 +46,9 @@ const TimelineVisualization = () => {
               boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
               transition: 'transform 0.3s',
               '&:hover': { transform: 'scale(1.05)' },
-              width: '30%', // Controls width of each card
-              minWidth: '250px', // Ensures cards don't get too small on smaller screens
-              height: '250px', // Fixed height for cards
+              width: '30%',
+              minWidth: '250px',
+              height: '250px',
             }}
           >
             <CardContent>
@@ -101,7 +76,7 @@ const TimelineVisualization = () => {
         display="flex"
         flexWrap="wrap"
         justifyContent="space-between"
-        gap={3} // Adds spacing between the cards
+        gap={3}
       >
         {postReturnEvents.map((event, index) => (
           <Card
@@ -113,9 +88,9 @@ const TimelineVisualization = () => {
               boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
               transition: 'transform 0.3s',
               '&:hover': { transform: 'scale(1.05)' },
-              width: '30%', // Controls width of each card
-              minWidth: '250px', // Ensures cards don't get too small on smaller screens
-              height: '250px', // Fixed height for cards
+              width: '30%',
+              minWidth: '250px',
+              height: '250px',
             }}
           >
             <CardContent>
