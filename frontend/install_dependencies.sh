@@ -1,5 +1,7 @@
 #!/bin/bash
 
+npm install 
+
 # Install React and React DOM
 npm install react react-dom
 
@@ -32,3 +34,5 @@ npm install react-chartjs-2 chart.js chartjs-adapter-date-fns
 
 
 npm install react-gantt-timeline
+
+npm install react-material-ui-carousel

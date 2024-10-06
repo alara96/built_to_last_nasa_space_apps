@@ -71,7 +71,7 @@ const MetadataRetriever = ({ onMetadataFetched }) => {
           fontWeight: 'bold'
         }}
       >
-        Fetch Data from Flask API
+        Fetch New Data from API
       </Button>
       {loading && (
         <Typography
