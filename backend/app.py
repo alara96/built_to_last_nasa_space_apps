@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS  # Import CORS
 import requests
 from download_data import download_file
@@ -7,12 +7,12 @@ import json
 from gpt import call_chad
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='build', static_url_path='/')
 CORS(app)  # Enable CORS for all routes
 
 @app.route('/')
 def home():
-    return "Flask backend is running!"
+    return app.send_static_file('index.html')
 
 # Route to serve rodent_379.json
 @app.route('/api/rodent/379', methods=['GET'])
