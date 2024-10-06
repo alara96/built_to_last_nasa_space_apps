@@ -1,8 +1,10 @@
-// SummaryCards.js
 import React, { useEffect, useState } from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import VaccinesIcon from '@mui/icons-material/Vaccines';
+import HealingIcon from '@mui/icons-material/Healing';
+import MonitorWeightIcon from '@mui/icons-material/MonitorWeight';
 
 // Register required components for Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -64,9 +66,10 @@ const SummaryCards = () => {
   return (
     <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={4} mb={4}>
       {/* Summary Cards */}
-      <Box flex={{ md: 1 }}>
-        <Card sx={{ backgroundColor: '#1a1a2e', color: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)', mb: 4 }}>
+      <Box flex={{ md: 1 }} display="flex" flexDirection="column" gap={4} alignItems="center" justifyContent="center">
+        <Card sx={{ background: 'linear-gradient(135deg, #1e3c72, #2a5298)', color: 'white', borderRadius: '12px', boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)', height: '100%', width: '100%', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
           <CardContent>
+            <VaccinesIcon sx={{ fontSize: 40, mb: 1 }} />
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>Number of Subjects per Group</Typography>
             <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
               <strong>Flight:</strong> {data.flight.subjects}<br />
@@ -75,8 +78,9 @@ const SummaryCards = () => {
             </Typography>
           </CardContent>
         </Card>
-        <Card sx={{ backgroundColor: '#1a1a2e', color: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)', mb: 4 }}>
+        <Card sx={{ background: 'linear-gradient(135deg, #ff7e5f, #feb47b)', color: 'white', borderRadius: '12px', boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)', height: '100%', width: '100%', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
           <CardContent>
+            <HealingIcon sx={{ fontSize: 40, mb: 1 }} />
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>Treatments</Typography>
             <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
               <strong>Flight:</strong> {data.flight.treatment}<br />
@@ -85,18 +89,19 @@ const SummaryCards = () => {
             </Typography>
           </CardContent>
         </Card>
-        <Card sx={{ backgroundColor: '#1a1a2e', color: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)', mb: 4 }}>
+        <Card sx={{ background: 'linear-gradient(135deg, #43cea2, #185a9d)', color: 'white', borderRadius: '12px', boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)', height: '100%', width: '100%', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
           <CardContent>
+            <MonitorWeightIcon sx={{ fontSize: 40, mb: 1 }} />
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>Mouse Weight Overview</Typography>
             <Typography variant="body1" sx={{ lineHeight: 1.5, fontWeight: 'bold' }}>
-              Weight range: <strong>{data.weightRange}</strong>
+              <strong>Weight range:</strong> {data.weightRange}
             </Typography>
           </CardContent>
         </Card>
       </Box>
 
       {/* Subject Distribution Chart */}
-      <Box flex={{ md: 1 }} sx={{ bgcolor: '#1a1a2e', p: 3, borderRadius: 2 }}>
+      <Box flex={{ md: 1 }} sx={{ bgcolor: '#1a1a2e', p: 3, borderRadius: '12px', boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.03)' } }}>
         <Typography
           variant="h5"
           color="#ffffff"
