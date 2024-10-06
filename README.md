@@ -2,26 +2,54 @@
 
 2024 Nasa Space Apps Challenge - Team: B[U]ILT To Last
 
-**How to Set Up**
+## How to Set Up
 
+To set up the project, you'll need to install `uv` by running the following command:
+
+```bash
 pip install uv
+```
 
-**Installing dependencies for React app (inside frontend folder)**
+## Installing Dependencies for React App (inside `frontend` folder)
 
-chmod +x install_dependencies.sh
+1. Make the installation script executable by running:
 
-./install_dependencies.sh
+   ```bash
+   chmod +x install_dependencies.sh
+   ```
+2. Install the dependencies by executing the script:
 
-**Run Frontend (Be inside the frontend folder)**
+   ```bash
+   ./install_dependencies.sh
+   ```
 
+## Run Frontend (Be inside the `frontend` folder)
+
+To start the frontend of your application, navigate to the `frontend` folder and run:
+
+```bash
 npm start
+```
 
-**Run backend (Be inside the backend folder)**
+## Run Backend (Be inside the `backend` folder)
 
-uv venv
+1. Create a virtual environment using `uv`:
 
-source .venv/bin/activate
+   ```bash
+   uv venv
+   ```
+2. Activate the virtual environment:
 
-uv pip install -r requirements.txt
+   ```bash
+   source .venv/bin/activate
+   ```
+3. Install the required backend dependencies:
 
-python app.py
+   ```bash
+   uv pip install -r requirements.txt
+   ```
+4. Start the backend server by running:
+
+   ```bash
+   python app.py
+   ```
