@@ -7,7 +7,7 @@ const MetadataRetriever = () => {
 
   const fetchMetadata = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/api/metadata');
+      const response = await axios.get('http://127.0.0.1:5000/rodent_379');
       setMetadata(JSON.stringify(response.data, null, 4));
     } catch (error) {
       setMetadata(`Error: ${error.message}`);
