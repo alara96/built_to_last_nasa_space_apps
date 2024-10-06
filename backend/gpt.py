@@ -37,6 +37,8 @@ def call_chad(folder_path):
     json
     Copy code
     {
+    "name": <description>,
+    "purpose": <description>,
     "number_of_groups": <number>,
     "groups": [
         {
@@ -90,5 +92,5 @@ def call_chad(folder_path):
     # print(completion['choices'][0]['message']['content'].strip())
     return completion['choices'][0]['message']['content'].strip()
 
-response = call_chad("database/OSD-379_metadata_OSD-379-ISA")
-print(response)
+# response = call_chad("database/OSD-379_metadata_OSD-379-ISA")
+# print(response)
