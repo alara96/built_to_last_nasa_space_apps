@@ -9,8 +9,8 @@ import MonitorWeightIcon from '@mui/icons-material/MonitorWeight';
 // Register required components for Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const SummaryCards = () => {
-  const [data, setData] = useState(null);
+const SummaryCards = ({ metadata }) => {
+  const [chartData, setChartData] = useState(null); // Corrected destructuring
 
   useEffect(() => {
     // Simulate fetching data from an array in file
@@ -18,22 +18,25 @@ const SummaryCards = () => {
       flight: { subjects: 9, treatment: 'Spaceflight Exposure' },
       hgc: { subjects: 9, treatment: 'Habitat Ground Control' },
       vgc: { subjects: 9, treatment: 'Vivarium Ground Control' },
-      weightRange: '27.3g - 35.9g'
+      weightRange: '27.3g - 35.9g',
     };
-    setData(dataArray);
+    setChartData(dataArray);
   }, []);
 
-  if (!data) {
+  if (!metadata || metadata.error) {
+    return <Typography>Error fetching data</Typography>;
+  }
+
+  if (!chartData) {
     return <Typography>Loading...</Typography>;
   }
 
-  // Chart.js data format
-  const chartData = {
+  const chartDataForPie = {
     labels: ['Flight', 'Habitat Ground Control', 'Vivarium Ground Control'],
     datasets: [
       {
         label: 'Number of Subjects',
-        data: [data.flight.subjects, data.hgc.subjects, data.vgc.subjects],
+        data: [chartData.flight.subjects, chartData.hgc.subjects, chartData.vgc.subjects],
         backgroundColor: ['#69b3a2', '#ffcc00', '#ff6666'], // Custom colors for segments
         borderColor: '#1a1a2e', // Dark border color to match background
         borderWidth: 1,
@@ -41,7 +44,6 @@ const SummaryCards = () => {
     ],
   };
 
-  // Chart.js options
   const chartOptions = {
     plugins: {
       legend: {
@@ -72,9 +74,9 @@ const SummaryCards = () => {
             <VaccinesIcon sx={{ fontSize: 40, mb: 1 }} />
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>Number of Subjects per Group</Typography>
             <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
-              <strong>Flight:</strong> {data.flight.subjects}<br />
-              <strong>HGC:</strong> {data.hgc.subjects}<br />
-              <strong>VGC:</strong> {data.vgc.subjects}
+              <strong>Flight:</strong> {chartData.flight.subjects}<br />
+              <strong>HGC:</strong> {chartData.hgc.subjects}<br />
+              <strong>VGC:</strong> {chartData.vgc.subjects}
             </Typography>
           </CardContent>
         </Card>
@@ -83,9 +85,9 @@ const SummaryCards = () => {
             <HealingIcon sx={{ fontSize: 40, mb: 1 }} />
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>Treatments</Typography>
             <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
-              <strong>Flight:</strong> {data.flight.treatment}<br />
-              <strong>HGC:</strong> {data.hgc.treatment}<br />
-              <strong>VGC:</strong> {data.vgc.treatment}
+              <strong>Flight:</strong> {chartData.flight.treatment}<br />
+              <strong>HGC:</strong> {chartData.hgc.treatment}<br />
+              <strong>VGC:</strong> {chartData.vgc.treatment}
             </Typography>
           </CardContent>
         </Card>
@@ -94,7 +96,7 @@ const SummaryCards = () => {
             <MonitorWeightIcon sx={{ fontSize: 40, mb: 1 }} />
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>Mouse Weight Overview</Typography>
             <Typography variant="body1" sx={{ lineHeight: 1.5, fontWeight: 'bold' }}>
-              <strong>Weight range:</strong> {data.weightRange}
+              <strong>Weight range:</strong> {chartData.weightRange}
             </Typography>
           </CardContent>
         </Card>
@@ -111,7 +113,7 @@ const SummaryCards = () => {
           Subject Distribution
         </Typography>
         <Box sx={{ height: '400px' }}>
-          <Pie data={chartData} options={chartOptions} />
+          <Pie data={chartDataForPie} options={chartOptions} />
         </Box>
       </Box>
     </Box>
