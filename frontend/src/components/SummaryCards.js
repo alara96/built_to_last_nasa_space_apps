@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography, Stack } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -66,125 +66,140 @@ const SummaryCards = ({ metadata }) => {
 
   return (
     <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={4} mb={4}>
-      {/* Title and Purpose Box */}
-      <Box flex={{ md: 1 }} display="flex" flexDirection="column" gap={4} alignItems="center" justifyContent="center">
-        <Card
-          sx={{
-            background: 'linear-gradient(135deg, #7b2cbf, #9d4edd)', // Purpleish gradient for Title/Purpose card
-            color: 'white',
-            borderRadius: '12px',
-            boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
-            height: '100%',
-            width: '100%',
-            transition: 'transform 0.3s',
-            '&:hover': { transform: 'scale(1.05)' },
-          }}
-        >
-          <CardContent>
-            <Typography
-              variant="h4"
-              sx={{
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                fontWeight: 'bold',
-                mb: 2,
-              }}
-            >
-              {metadata.name}
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                fontWeight: 'normal',
-              }}
-            >
-              <strong>Purpose: </strong>{metadata.purpose}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Box>
-
-      {/* Carousel for Group Cards */}
-      <Box flex={{ md: 1 }} display="flex" flexDirection="column" gap={1} alignItems="center" justifyContent="center">
-        <Carousel>
-          {metadata.groups.map((group, index) => (
-            <div key={index}>
-              {/* Group: Treatments */}
-              <Card
+      {/* Title, Purpose, Treatments, and Results Stack */}
+      <Box flex={{ md: 1 }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+        <Stack direction="column" spacing={4} sx={{ width: '100%' }}>
+          {/* Title and Purpose Card */}
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #7b2cbf, #9d4edd)', // Purpleish gradient for Title/Purpose card
+              color: 'white',
+              borderRadius: '12px',
+              boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
+              width: '100%',
+              transition: 'transform 0.3s',
+              '&:hover': { transform: 'scale(1.05)' },
+            }}
+          >
+            <CardContent>
+              <Typography
+                variant="h4"
                 sx={{
-                  background: 'linear-gradient(135deg, #ff7e5f, #feb47b)', // Color for Treatments card
-                  color: 'white',
-                  borderRadius: '12px',
-                  boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
-                  height: '50%',
-                  width: '100%',
-                  transition: 'transform 0.3s',
-                  '&:hover': { transform: 'scale(1.05)' },
-                  mb: 4,
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                  fontWeight: 'bold',
+                  mb: 2,
                 }}
               >
-                <CardContent>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>{group.group_name} - Treatments</Typography>
-                  <VaccinesIcon sx={{ fontSize: 40, mb: 1 }} />
-                  <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
-                    {group.treatment || 'N/A'}
-                  </Typography>
-                </CardContent>
-              </Card>
-
-              {/* Group: Results */}
-              <Card
+                {metadata.name}
+              </Typography>
+              <Typography
+                variant="h6"
                 sx={{
-                  background: 'linear-gradient(135deg, #43cea2, #185a9d)', // Color for Results card
-                  color: 'white',
-                  borderRadius: '12px',
-                  boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
-                  height: '50%',
-                  width: '100%',
-                  transition: 'transform 0.3s',
-                  '&:hover': { transform: 'scale(1.05)' },
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                  fontWeight: 'normal',
                 }}
               >
-                <CardContent>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>{group.group_name} - Results</Typography>
-                  <HealingIcon sx={{ fontSize: 40, mb: 1 }} />
-                  <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
-                    {group.results || 'N/A'}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </Carousel>
+                <strong>Purpose: </strong>{metadata.purpose}
+              </Typography>
+            </CardContent>
+          </Card>
+
+          {/* Carousel for Group Cards */}
+          <Carousel>
+            {metadata.groups.map((group, index) => (
+              <div key={index}>
+                {/* Group: Treatments */}
+                <Card
+                  sx={{
+                    background: 'linear-gradient(135deg, #ff7e5f, #feb47b)', // Color for Treatments card
+                    color: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
+                    width: '100%',
+                    transition: 'transform 0.3s',
+                    '&:hover': { transform: 'scale(1.05)' },
+                    mb: 4,
+                  }}
+                >
+                  <CardContent>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>{group.group_name} - Treatments</Typography>
+                    <VaccinesIcon sx={{ fontSize: 40, mb: 1 }} />
+                    <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
+                      {group.treatment || 'N/A'}
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                {/* Group: Results */}
+                <Card
+                  sx={{
+                    background: 'linear-gradient(135deg, #43cea2, #185a9d)', // Color for Results card
+                    color: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
+                    width: '100%',
+                    transition: 'transform 0.3s',
+                    '&:hover': { transform: 'scale(1.05)' },
+                  }}
+                >
+                  <CardContent>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>{group.group_name} - Results</Typography>
+                    <HealingIcon sx={{ fontSize: 40, mb: 1 }} />
+                    <Typography variant="body1" sx={{ lineHeight: 1.5 }}>
+                      {group.results || 'N/A'}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </Carousel>
+        </Stack>
       </Box>
 
       {/* Subject Distribution Chart */}
-      <Box
-        flex={{ md: 1 }}
-        sx={{
-          bgcolor: '#1a1a2e',
-          p: 3,
-          borderRadius: '12px',
-          boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
-          transition: 'transform 0.3s',
-          '&:hover': { transform: 'scale(1.03)' },
-        }}
-      >
-        <Typography
-          variant="h5"
-          color="#ffffff"
-          gutterBottom
-          sx={{
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-            fontWeight: 'bold',
-          }}
-        >
-          Subject Distribution
-        </Typography>
-        <Box sx={{ height: '400px' }}>
-          <Pie data={chartDataForPie} options={chartOptions} />
-        </Box>
-      </Box>
+{/* Subject Distribution Chart */}
+<Box
+  flex={{ md: 1 }}
+  sx={{
+    bgcolor: '#1a1a2e',
+    p: 3,
+    borderRadius: '12px',
+    boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
+    transition: 'transform 0.3s',
+    '&:hover': { transform: 'scale(1.03)' },
+    display: 'flex',            // Flexbox layout
+    flexDirection: 'column',     // Ensure vertical stacking of title and chart
+    alignItems: 'center',        // Center horizontally
+  }}
+>
+  <Typography
+    variant="h5"
+    color="#ffffff"
+    gutterBottom
+    sx={{
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      fontWeight: 'bold',
+      textAlign: 'center',        // Ensure title is centered horizontally
+    }}
+  >
+    Subject Distribution
+  </Typography>
+
+  {/* Box for centering the chart */}
+  <Box 
+    sx={{ 
+      height: '400px', 
+      width: '100%', 
+      display: 'flex', 
+      justifyContent: 'center',   // Center chart horizontally
+      alignItems: 'center',       // Center chart vertically
+      flexGrow: 1                 // Allow chart to take up remaining space
+    }}
+  >
+    <Pie data={chartDataForPie} options={chartOptions} />
+  </Box>
+</Box>
+
     </Box>
   );
 };
