@@ -2,6 +2,9 @@
 from flask import Flask, jsonify
 from flask_cors import CORS  # Import CORS
 import requests
+from download_data import download_file
+import json
+from gpt import call_chad
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -13,14 +16,33 @@ def home():
 # Endpoint to fetch metadata from NASA
 @app.route('/api/metadata', methods=['GET'])
 def fetch_metadata():
-    url = "https://osdr.nasa.gov/osdr/data/osd/files/87"
+    url = "https://osdr.nasa.gov/osdr/data/osd/files/379"
     headers = {
         "Content-Type": "application/json"
     }
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
-            return jsonify(response.json())
+            json_data = response.json()
+            zip_path = None
+            zip_name = None
+            # Extracting the remote zip path from NASA API request
+            for file in json_data['studies']['OSD-379']['study_files']:
+                if file['category'] == 'Study Metadata Files':
+                    zip_path = file['remote_url']
+                    zip_name = file['file_name']
+                    break
+            # Download the zip and extract
+            chad_json = None
+            if zip_name and zip_path:
+                download_file(f'https://osdr.nasa.gov{zip_path}', "database", zip_name)
+                path_name = "database/"+zip_name.split('.')[0]
+                print(path_name)
+                chad_json = call_chad(path_name)
+            if chad_json:
+                return(chad_json)
+            else:
+                return jsonify(response.json())
         else:
             return jsonify({"error": f"Error: {response.status_code}"}), response.status_code
     except Exception as e:
