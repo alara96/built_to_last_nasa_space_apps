@@ -1,113 +1,133 @@
-// TimelineVisualization.js --> this is the one being used in the TV2
+import React, { useEffect, useState } from 'react';
+import { Box, Card, CardContent, Typography } from '@mui/material';
+import axios from 'axios';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import EventIcon from '@mui/icons-material/Event';
 
-import React, { useEffect, useRef } from 'react';
-import { Box, Typography } from '@mui/material';
-import * as d3 from 'd3';
+// Utility function to format dates
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
 
 const TimelineVisualization = () => {
-  const chartRef = useRef(null);
+  const [preLaunchEvents, setPreLaunchEvents] = useState([]);
+  const [postReturnEvents, setPostReturnEvents] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const data = [
-      { event: 'Launch', start: new Date(2020, 11, 5), end: new Date(2020, 11, 5) },
-      { event: 'Spaceflight', start: new Date(2020, 11, 6), end: new Date(2021, 0, 13) },
-      { event: 'Splashdown', start: new Date(2021, 0, 13), end: new Date(2021, 0, 13) },
-      { event: 'Recovery', start: new Date(2021, 0, 13), end: new Date(2021, 0, 14) },
-      { event: 'Dissection', start: new Date(2021, 0, 14), end: new Date(2021, 0, 17) },
-    ];
+    const fetchMetadata = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/api/rodent/379'); // Your backend endpoint
+        const metadata = response.data;
 
-    const margin = { top: 40, right: 30, bottom: 50, left: 100 };
-    const width = chartRef.current.clientWidth - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
+        // Parse and separate pre-launch and post-return events
+        setPreLaunchEvents(metadata.pre_launch_events);
+        setPostReturnEvents(metadata.post_return_events);
+      } catch (err) {
+        setError('Error fetching metadata');
+        console.error(err);
+      }
+    };
 
-    // Clear any previous SVG
-    d3.select(chartRef.current).select('svg').remove();
-
-    const svg = d3.select(chartRef.current)
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-
-    const x = d3.scaleTime()
-      .domain([d3.min(data, d => d.start), d3.max(data, d => d.end)])
-      .range([0, width]);
-
-    const y = d3.scalePoint()
-      .domain(data.map(d => d.event))
-      .range([0, height])
-      .padding(1);
-
-    svg.append('g')
-      .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%b %d, %Y")))
-      .selectAll('text')
-      .style('fill', '#ffffff')
-      .style('font-size', '12px')
-      .style('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif')
-      .style('text-anchor', 'middle');
-
-    svg.append('g')
-      .call(d3.axisLeft(y))
-      .selectAll('text')
-      .style('fill', '#ffffff')
-      .style('font-size', '16px')
-      .style('font-weight', 'bold')
-      .style('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif');
-
-    // Draw links between events
-    svg.selectAll('.link')
-      .data(data.slice(1))
-      .enter()
-      .append('path')
-      .attr('class', 'link')
-      .attr('d', (d, i) => {
-        const prev = data[i];
-        return `M${x(prev.end)},${y(prev.event)} C${(x(prev.end) + x(d.start)) / 2},${y(prev.event)} ${(x(prev.end) + x(d.start)) / 2},${y(d.event)} ${x(d.start)},${y(d.event)}`;
-      })
-      .attr('fill', 'none')
-      .attr('stroke', '#ffcc00')
-      .attr('stroke-width', 2);
-
-    svg.selectAll('.bar')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', d => x(d.start))
-      .attr('y', d => y(d.event) - 10)
-      .attr('width', d => x(d.end) - x(d.start))
-      .attr('height', 50)
-      .attr('fill', '#69b3a2')
-      .attr('rx', 10);
-
-    // Adding event labels to the bars
-    svg.selectAll('.event-label')
-      .data(data)
-      .enter()
-      .append('text')
-      .attr('class', 'event-label')
-      .attr('x', d => x(d.start) + 5)
-      .attr('y', d => y(d.event))
-      .attr('dy', '.35em')
-      .attr('fill', '#ffffff')
-      .style('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif')
-      .style('font-size', '12px')
-      .text(d => d.event);
+    fetchMetadata();
   }, []);
 
+  if (error) {
+    return <Typography>Error: {error}</Typography>;
+  }
+
   return (
-    <Box mb={4} sx={{ bgcolor: '#1a1a2e', p: 3, borderRadius: 2, boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)' }}>
+    <Box sx={{ backgroundColor: '#1a1a2e', padding: 2, borderRadius: 2 }}> {/* Dark blue background with padding */}
+
+      {/* Pre-Launch Events */}
       <Typography
-        variant="h5"
+        variant="h6"
         color="#ffffff"
         gutterBottom
-        sx={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontWeight: 'bold' }}
+        sx={{ fontWeight: 'bold', mt: 3, mb: 2 }}
       >
-        Timeline of Events
+        Pre-Launch Events
       </Typography>
-      <Box ref={chartRef} sx={{ width: '100%' }} />
+
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        gap={3} // Adds spacing between the cards
+        mb={4}
+      >
+        {preLaunchEvents.map((event, index) => (
+          <Card
+            key={index}
+            sx={{
+              background: 'linear-gradient(135deg, #ff7f7f, #ff4b4b)', // Red gradient for Pre-Launch cards
+              color: 'white',
+              borderRadius: '12px',
+              boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
+              transition: 'transform 0.3s',
+              '&:hover': { transform: 'scale(1.05)' },
+              width: '30%', // Controls width of each card
+              minWidth: '250px', // Ensures cards don't get too small on smaller screens
+              height: '250px', // Fixed height for cards
+            }}
+          >
+            <CardContent>
+              <RocketLaunchIcon sx={{ fontSize: 40, mb: 1 }} />
+              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{event.event}</Typography>
+              <Typography variant="body1" sx={{ mt: 1, color: '#ffffff99' }}>
+                {formatDate(event.date)}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+
+      {/* Post-Return Events */}
+      <Typography
+        variant="h6"
+        color="#ffffff"
+        gutterBottom
+        sx={{ fontWeight: 'bold', mt: 3, mb: 2 }}
+      >
+        Post-Return Events
+      </Typography>
+
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        gap={3} // Adds spacing between the cards
+      >
+        {postReturnEvents.map((event, index) => (
+          <Card
+            key={index}
+            sx={{
+              background: 'linear-gradient(135deg, #f8c291, #f6b93b)', // Yellow gradient for Post-Return cards
+              color: 'white',
+              borderRadius: '12px',
+              boxShadow: '0 6px 25px rgba(0, 0, 0, 0.3)',
+              transition: 'transform 0.3s',
+              '&:hover': { transform: 'scale(1.05)' },
+              width: '30%', // Controls width of each card
+              minWidth: '250px', // Ensures cards don't get too small on smaller screens
+              height: '250px', // Fixed height for cards
+            }}
+          >
+            <CardContent>
+              <EventIcon sx={{ fontSize: 40, mb: 1 }} />
+              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{event.event}</Typography>
+              <Typography variant="body1" sx={{ mt: 1, color: '#ffffff99' }}>
+                {formatDate(event.date)}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
     </Box>
   );
 };
