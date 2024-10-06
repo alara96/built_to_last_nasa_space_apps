@@ -1,22 +1,53 @@
-// App.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, CssBaseline } from '@mui/material';
 import SummaryCards from './components/SummaryCards';
 import TimelineVisualization from './components/TimelineVisualization';
-import TimelineVisualization2 from './components/TimelineVisualization2';
 import MetadataRetriever from './components/MetadataRetriever';
 import Header from './components/Header';
+import axios from 'axios'; // For making API calls to Flask
 
 const App = () => {
+  const [metadata, setMetadata] = useState(null); // Holds the metadata
+  const [filteredData, setFilteredData] = useState(null); // Holds the filtered metadata
+
+  // Function to handle metadata once fetched (from either local or API)
+  const handleMetadataFetched = (fetchedMetadata) => {
+    setMetadata(fetchedMetadata);
+    setFilteredData(fetchedMetadata); // Initialize filtered data
+  };
+
+  // Automatically load the default rodent 379 data when the component mounts
+  useEffect(() => {
+    const loadRodent379FromAPI = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/api/rodent/379'); // Fetch rodent_379.json from Flask
+        setMetadata(response.data); // Set metadata from the API
+        setFilteredData(response.data); // Initialize filtered data
+      } catch (error) {
+        console.error('Error loading rodent 379 data:', error);
+      }
+    };
+
+    loadRodent379FromAPI(); // Automatically load rodent 379 data on component mount
+  }, []);
+
   return (
     <>
       <CssBaseline />
       <Container maxWidth={false} sx={{ backgroundColor: 'black', minHeight: '100vh', py: 4, margin: 0, position: 'relative', overflowY: 'auto' }}>
+        {/* Header Component */}
         <Header />
-        <SummaryCards />
-        <TimelineVisualization2 />
-        <MetadataRetriever />
+        
+        {/* Summary Cards Component */}
+        {filteredData && <SummaryCards metadata={filteredData} />}
+
+        {/* Timeline Visualization */}
+        {filteredData && <TimelineVisualization metadata={filteredData} />}
+
+        {/* Metadata Retriever to allow loading rodent 665 data or fetching from Flask API */}
+        <MetadataRetriever onMetadataFetched={handleMetadataFetched} />
       </Container>
+
       <style jsx global>{`
         body {
           margin: 0;
@@ -49,6 +80,7 @@ const App = () => {
           pointer-events: none; /* Ensure stars do not block interaction with page */
         }
       `}</style>
+
       {/* Add stars to the foreground while allowing scrolling */}
       <div className="stars-wrapper">
         {[...Array(100)].map((_, i) => (

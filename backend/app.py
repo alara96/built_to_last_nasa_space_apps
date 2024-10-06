@@ -5,6 +5,7 @@ import requests
 from download_data import download_file
 import json
 from gpt import call_chad
+import os
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -12,6 +13,28 @@ CORS(app)  # Enable CORS for all routes
 @app.route('/')
 def home():
     return "Flask backend is running!"
+
+# Route to serve rodent_379.json
+@app.route('/api/rodent/379', methods=['GET'])
+def get_rodent_379():
+    try:
+        rodent_data_path = os.path.join('rodent_data', 'rodent_379.json')  # Adjust path as needed
+        with open(rodent_data_path, 'r') as file:
+            data = json.load(file)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Route to serve rodent_665.json
+@app.route('/api/rodent/665', methods=['GET'])
+def get_rodent_665():
+    try:
+        rodent_data_path = os.path.join('rodent_data', 'rodent_665.json')  # Adjust path as needed
+        with open(rodent_data_path, 'r') as file:
+            data = json.load(file)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # Endpoint to fetch metadata from NASA
 @app.route('/api/metadata', methods=['GET'])
