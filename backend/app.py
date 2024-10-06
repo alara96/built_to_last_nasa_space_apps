@@ -71,5 +71,15 @@ def fetch_metadata():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/rodent_379', methods=['GET'])
+def fetch_rodent_one_json():
+    data = json.load(open('rodent_data/rodent_379.json'))
+    return jsonify(data)
+
+@app.route('/rodent_665', methods=['GET'])
+def fetch_rodent_two_json():
+    data = json.load(open('rodent_data/rodent_665.json'))
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.run(debug=True)
