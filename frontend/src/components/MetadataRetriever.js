@@ -36,6 +36,21 @@ const MetadataRetriever = ({ onMetadataFetched }) => {
     }
   };
 
+  // Fetch metadata from Flask API
+  const fetchMetadataFromAPI = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get('http://127.0.0.1:5000/api/metadata'); // API call for Flask metadata
+      onMetadataFetched(response.data);
+    } catch (err) {
+      setError('Failed to fetch metadata from API.');
+      console.error('API Fetch Error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box mt={4} mb={4} sx={{ backgroundColor: '#1a1a2e', padding: 4, borderRadius: 2 }}>
       <Typography
@@ -63,6 +78,13 @@ const MetadataRetriever = ({ onMetadataFetched }) => {
         sx={{ m: 1, fontWeight: 'bold' }}
       >
         Load Rodent 665 Data
+      </Button>
+      <Button
+        variant="contained"
+        onClick={fetchMetadataFromAPI}
+        sx={{ m: 1, fontWeight: 'bold' }}
+      >
+        Fetch From GPT 
       </Button>
       {loading && (
         <Typography sx={{ fontWeight: 'bold', fontSize: '1rem', color: '#ffffff' }}>
