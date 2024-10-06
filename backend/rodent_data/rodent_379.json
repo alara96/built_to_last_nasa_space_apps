@@ -1,150 +1,96 @@
 {
-    "number_of_groups": 16,
+    "name": "Transcriptional profiling of livers from mice flown on Rodent Research Reference Mission-1 (RRRM-1)",
+    "purpose": "To assess the effects of spaceflight on liver transcriptional activity in mice, examining the influence of age and the environmental conditions in space compared to ground controls.",
+    "number_of_groups": 8,
     "groups": [
       {
-        "group_name": "ISS Terminal Old",
+        "group_name": "ISS-T Old Mice",
         "subjects": 10,
-        "treatment": "Sacrificed on-orbit after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Old mice were flown in space for 22-23 days and sacrificed on-orbit.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       },
       {
-        "group_name": "ISS Terminal Young",
+        "group_name": "ISS-T Young Mice",
         "subjects": 10,
-        "treatment": "Sacrificed on-orbit after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Young mice were flown in space for 22-23 days and sacrificed on-orbit.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       },
       {
-        "group_name": "Live Animal Return Old",
+        "group_name": "LAR Old Mice",
         "subjects": 10,
-        "treatment": "Returned to Earth after 40 days, recovered for 2 days before sacrifice",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Old mice were flown in space for 40 days, returned live to Earth, allowed to recover for 2 days, and then sacrificed.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       },
       {
-        "group_name": "Live Animal Return Young",
+        "group_name": "LAR Young Mice",
         "subjects": 10,
-        "treatment": "Returned to Earth after 40 days, recovered for 2 days before sacrifice",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Young mice were flown in space for 40 days, returned live to Earth, allowed to recover for 2 days, and then sacrificed.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       },
       {
-        "group_name": "ISS Terminal Ground Control Old",
+        "group_name": "Habitat Ground Control Old Mice",
         "subjects": 10,
-        "treatment": "Ground control conditions, sacrificed after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Old mice housed in flight hardware on Earth under identical environmental conditions to those in space for 22-23 days.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       },
       {
-        "group_name": "ISS Terminal Ground Control Young",
+        "group_name": "Habitat Ground Control Young Mice",
         "subjects": 10,
-        "treatment": "Ground control conditions, sacrificed after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Young mice housed in flight hardware on Earth under identical environmental conditions to those in space for 22-23 days.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       },
       {
-        "group_name": "Live Animal Return Ground Control Old",
+        "group_name": "Vivarium Control Old Mice",
         "subjects": 10,
-        "treatment": "Ground control conditions, sacrificed after 40 days with 2 days of recovery",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Old mice housed in a vivarium on Earth with standard bedding and food.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       },
       {
-        "group_name": "Live Animal Return Ground Control Young",
+        "group_name": "Vivarium Control Young Mice",
         "subjects": 10,
-        "treatment": "Ground control conditions, sacrificed after 40 days with 2 days of recovery",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Baseline Control Old",
-        "subjects": 10,
-        "treatment": "Sacrificed 1 day after launch",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Baseline Control Young",
-        "subjects": 10,
-        "treatment": "Sacrificed 1 day after launch",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Vivarium Control Old",
-        "subjects": 10,
-        "treatment": "Standard vivarium housing, sacrificed after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Vivarium Control Young",
-        "subjects": 10,
-        "treatment": "Standard vivarium housing, sacrificed after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Live Animal Return Vivarium Control Old",
-        "subjects": 10,
-        "treatment": "Standard vivarium housing, sacrificed after 40 days with 2 days of recovery",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Live Animal Return Vivarium Control Young",
-        "subjects": 10,
-        "treatment": "Standard vivarium housing, sacrificed after 40 days with 2 days of recovery",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Habitat Ground Control Old",
-        "subjects": 10,
-        "treatment": "Ground control housed in Transporters, sacrificed after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
-      },
-      {
-        "group_name": "Habitat Ground Control Young",
-        "subjects": 10,
-        "treatment": "Ground control housed in Transporters, sacrificed after 22-23 days",
-        "results": "Ribodepleted total RNA-seq data from liver samples."
+        "treatment": "Young mice housed in a vivarium on Earth with standard bedding and food.",
+        "results": "RNA was extracted from liver samples and processed for transcriptional profiling."
       }
     ],
     "pre_launch_events": [
       {
-        "event": "Mice sourced from Taconic Biosciences and transported to NASA KSC",
+        "event": "Mice were housed and maintained at NASA Kennedy Space Center (KSC) with environmental conditions matching flight habitats.",
         "date": "11-05-2018"
       },
       {
-        "event": "Mice housed in Animal Care Facility for acclimation",
-        "date": "11-05-2018"
-      },
-      {
-        "event": "Grouping of mice for social acclimation in larger cages",
-        "date": "11-25-2018"
-      },
-      {
-        "event": "Baseline, spaceflight, and ground control groups identified",
-        "date": "12-03-2018"
-      },
-      {
-        "event": "Spaceflight animals loaded into spaceflight Transporters",
+        "event": "Mice were placed into spaceflight and habitat ground control transporters.",
         "date": "12-04-2018"
+      },
+      {
+        "event": "SpaceX-16 launched with mice aboard for the Rodent Research Reference Mission-1 (RRRM-1).",
+        "date": "12-05-2018"
       }
     ],
     "post_return_events": [
       {
-        "event": "Mice returned to Earth after 40 days",
+        "event": "Mice returned to Earth after splashdown in the Pacific Ocean, transported to NASA KSC.",
+        "date": "01-12-2019"
+      },
+      {
+        "event": "Mice were sacrificed, and liver samples were collected for analysis.",
         "date": "01-14-2019"
       },
       {
-        "event": "Mice allowed to recover for 2 days before sacrifice",
-        "date": "01-16-2019"
-      },
-      {
-        "event": "Tissue collection and dissection performed",
-        "date": "01-16-2019"
+        "event": "RNA sequencing was performed on liver samples using Illumina NovaSeq 6000.",
+        "date": "02-26-2021"
       }
     ],
     "similar_experiments": {
       "osdr_experiments": [
         {
-          "experiment_id": "OSD-378",
-          "description": "Similar RNA-seq profiling from liver tissue samples in spaceflight conditions."
+          "experiment_id": "GLDS-379",
+          "description": "Transcriptional profiling of liver samples from prior rodent research missions in space using a similar sequencing platform."
         }
       ],
       "same_subject_experiments": [
         {
           "experiment_id": "RRRM-1",
-          "description": "Previous studies involving tissue samples from the same age groups of mice flown on the ISS."
+          "description": "Study investigating the effects of spaceflight on liver tissue, focused on the comparison of young and old mice."
         }
       ]
     }

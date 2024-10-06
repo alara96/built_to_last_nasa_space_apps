@@ -1,66 +1,63 @@
 {
-    "number_of_groups": 3,
-    "groups": [
-      {
-        "group_name": "Flight",
-        "subjects": 20,
-        "treatment": "Spaceflight in microgravity for 38 days on the International Space Station (ISS), followed by Live Animal Return (LAR) to Earth.",
-        "results": "Tissue samples from right extensor digitorum longus muscle were collected post-flight, preserved in liquid nitrogen, and stored at -80°C for RNA extraction and sequencing."
-      },
-      {
-        "group_name": "Habitat Ground Control (HGC)",
-        "subjects": 20,
-        "treatment": "Ground control kept in the same habitat conditions as the flight group, but without spaceflight.",
-        "results": "Tissue samples were collected in parallel to the flight group under similar post-flight conditions."
-      },
-      {
-        "group_name": "Vivarium Ground Control (VGC)",
-        "subjects": 20,
-        "treatment": "Standard vivarium housing without exposure to habitat controls or spaceflight conditions.",
-        "results": "Tissue samples were collected under normal ground conditions for comparison with flight and habitat control groups."
-      }
-    ],
-    "pre_launch_events": [
-      {
-        "event": "Mice loaded into the Transporter for launch.",
-        "date": "12-05-2020"
-      },
-      {
-        "event": "Launch of SpaceX-21 with mice onboard.",
-        "date": "12-06-2020"
-      },
-      {
-        "event": "Mice transferred to Rodent Habitats upon arrival at ISS.",
-        "date": "12-07-2020"
-      }
-    ],
-    "post_return_events": [
-      {
-        "event": "Flight mice splashdown in Atlantic Ocean.",
-        "date": "01-13-2021"
-      },
-      {
-        "event": "Mice transported to Texas A&M University for post-flight procedures.",
-        "date": "01-14-2021"
-      },
-      {
-        "event": "Flight and Ground Control animals euthanized and dissected for tissue collection.",
-        "date": "01-14-2021 to 01-20-2021"
-      }
-    ],
-    "similar_experiments": {
-      "osdr_experiments": [
-        {
-          "experiment_id": "GLDS-604",
-          "description": "GeneLab RNA sequencing study of right extensor digitorum longus muscle from flight and ground control mice."
-        }
-      ],
-      "same_subject_experiments": [
-        {
-          "experiment_id": "RR-23",
-          "description": "Rodent Research-23 mission focused on understanding the effects of spaceflight on the eyes, with tissue samples taken from various organs for analysis."
-        }
-      ]
+  "name": "Transcriptional profiling of right extensor digitorum longus muscle from mice flown on the RR-23 mission",
+  "purpose": "To understand the effects of spaceflight on the eyes, specifically on the structure and function of arteries, veins, and lymphatic vessels critical to maintaining vision.",
+  "number_of_groups": 3,
+  "groups": [
+    {
+      "group_name": "Flight Group",
+      "subjects": 20,
+      "treatment": "Mice were flown to the ISS for 38 days and maintained in microgravity conditions.",
+      "results": "Right extensor digitorum longus muscle samples were collected and sequenced."
+    },
+    {
+      "group_name": "Habitat Ground Control (HGC) Group",
+      "subjects": 20,
+      "treatment": "Mice were housed in identical ground-based habitats under normal gravity.",
+      "results": "Right extensor digitorum longus muscle samples were collected and sequenced."
+    },
+    {
+      "group_name": "Vivarium Ground Control (VGC) Group",
+      "subjects": 20,
+      "treatment": "Mice were housed in standard vivarium cages under normal gravity.",
+      "results": "Right extensor digitorum longus muscle samples were collected and sequenced."
     }
+  ],
+  "pre_launch_events": [
+    {
+      "event": "Mice were prepared for spaceflight and housed in the Rodent Transporter aboard the SpaceX-21 mission.",
+      "date": "12-05-2020"
+    },
+    {
+      "event": "Mice were transferred to two Rodent Habitats upon arrival at the ISS.",
+      "date": "12-06-2020"
+    }
+  ],
+  "post_return_events": [
+    {
+      "event": "Mice returned to Earth via Live Animal Return (LAR) after splashdown in the Atlantic Ocean and were transported to Kennedy Space Center.",
+      "date": "01-13-2021"
+    },
+    {
+      "event": "Mice were euthanized and tissue samples were collected at Texas A&M University.",
+      "date": "01-14-2021"
+    },
+    {
+      "event": "Samples were processed, and RNA sequencing was performed on right extensor digitorum longus muscles.",
+      "date": "09-26-2023"
+    }
+  ],
+  "similar_experiments": {
+    "osdr_experiments": [
+      {
+        "experiment_id": "GLDS-604",
+        "description": "RNA sequencing of rodent muscle samples from prior spaceflight missions using a similar setup."
+      }
+    ],
+    "same_subject_experiments": [
+      {
+        "experiment_id": "RR-23",
+        "description": "Study focusing on ocular vascular hydrodynamics in spaceflight with tissue samples from the same subjects."
+      }
+    ]
   }
-  
+}

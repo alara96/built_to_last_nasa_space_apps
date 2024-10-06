@@ -1,6 +1,8 @@
 import openai
 import os
 
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 def call_chad(folder_path):
 
     # Initialize a string to store the contents of all the files
@@ -88,5 +90,5 @@ def call_chad(folder_path):
     # print(completion['choices'][0]['message']['content'].strip())
     return completion['choices'][0]['message']['content'].strip()
 
-# response = call_chad("database/OSD-379_metadata_OSD-379-ISA")
-# print(response)
+response = call_chad("database/OSD-379_metadata_OSD-379-ISA")
+print(response)
